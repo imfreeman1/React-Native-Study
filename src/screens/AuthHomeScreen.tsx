@@ -18,6 +18,7 @@ const AuthHomeScreen = ({navigation}: AuthHomeScreenProps) => {
           title="회원가입"
           onPress={() => navigation.navigate(authNavigationList.SIGN_UP)}
         />
+        <Button title="지도" onPress={() => navigation.navigate('Map')} />
       </View>
     </SafeAreaView>
   );
