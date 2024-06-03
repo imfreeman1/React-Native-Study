@@ -4,6 +4,7 @@ import notifee, {AndroidImportance} from '@notifee/react-native';
 import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import MapView, {
   Callout,
+  Circle,
   LatLng,
   LongPressEvent,
   Marker,
@@ -69,26 +70,26 @@ const MapViewScreen = ({}: MapViewScreenProps) => {
       {enableHighAccuracy: true},
     );
   }, []);
-  useEffect(() => {
-    if (count < moveToFar.length) {
-      setTimeout(() => {
-        setSelectedLocation(moveToFar[count]);
-        setCount(count + 1);
-      }, 2000);
-    }
-  }, [selectedLocation, count]);
+  // useEffect(() => {
+  //   if (count < moveToFar.length) {
+  //     setTimeout(() => {
+  //       setSelectedLocation(moveToFar[count]);
+  //       setCount(count + 1);
+  //     }, 2000);
+  //   }
+  // }, [selectedLocation, count]);
 
-  useEffect(() => {
-    if (selectedLocation) {
-      const distance = getDistanceFromLatLonInKm(
-        userLocation,
-        selectedLocation,
-      );
-      if (distance > 200) {
-        handleModal(distance);
-      }
-    }
-  }, [userLocation, selectedLocation]);
+  // useEffect(() => {
+  //   if (selectedLocation) {
+  //     const distance = getDistanceFromLatLonInKm(
+  //       userLocation,
+  //       selectedLocation,
+  //     );
+  //     if (distance > 200) {
+  //       handleModal(distance);
+  //     }
+  //   }
+  // }, [userLocation, selectedLocation]);
 
   async function onDisplayNotification() {
     // Request permissions (required for iOS)
@@ -163,13 +164,73 @@ const MapViewScreen = ({}: MapViewScreenProps) => {
         showsMyLocationButton={false}
         zoomControlEnabled
         onLongPress={e => handleMaker(e)}>
-        {selectedLocation && (
+        {/* {selectedLocation && (
           <Callout>
             <Marker coordinate={selectedLocation} />
           </Callout>
-        )}
+          <Callout>
+            <Marker coordinate={selectedLocation} />
+          </Callout>
+        )} */}
+        <Callout>
+          <Marker
+            title="다시서기센터"
+            coordinate={{
+              latitude: 37.545676532431756,
+              longitude: 126.97255904312624,
+            }}
+            pinColor="#00b226"
+          />
+        </Callout>
+        <Callout>
+          <Marker
+            pinColor="#FFBA0A"
+            title="비전트레이닝센터"
+            coordinate={{
+              latitude: 37.558325459346065,
+              longitude: 127.05601164725807,
+            }}
+          />
+        </Callout>
+        <Callout>
+          <Marker
+            title="24시간게스트하우스"
+            coordinate={{
+              latitude: 37.554080934504434,
+              longitude: 127.05772867381606,
+            }}
+          />
+        </Callout>
+        <Circle
+          center={{
+            latitude: 37.545676532431756,
+            longitude: 126.97255904312624,
+          }}
+          radius={4000}
+          strokeColor="#00b226"
+          fillColor="rgba(0, 178, 38,0.2)"
+        />
+        <Circle
+          center={{
+            latitude: 37.558325459346065,
+            longitude: 127.05601164725807,
+          }}
+          radius={4000}
+          strokeColor="#FFBA0A"
+          fillColor="rgba(255, 186, 10,0.2)"
+          zIndex={1}
+        />
+        <Circle
+          center={{
+            latitude: 37.554080934504434,
+            longitude: 127.05772867381606,
+          }}
+          radius={4000}
+          strokeColor="#ea0000"
+          fillColor="rgba(234, 0, 0, 0.2)"
+        />
       </MapView>
-      <View style={styles.locationButtonList}>
+      {/* <View style={styles.locationButtonList}>
         <Pressable style={styles.locationButton} onPress={handleUserLocation}>
           <Text>위치</Text>
         </Pressable>
@@ -191,7 +252,7 @@ const MapViewScreen = ({}: MapViewScreenProps) => {
             text
           </Text>
         </Pressable>
-      </View>
+      </View> */}
     </>
   );
 };
